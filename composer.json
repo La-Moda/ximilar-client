@@ -1,0 +1,44 @@
+{
+    "name": "lamoda/ximilar-client",
+    "description": "Ximilar API Client",
+    "keywords": ["laravel", "ximilar", "ximilar api client"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Iliushyk",
+            "email": "ailushyk@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/support": "^5.6"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.6",
+        "phpunit/phpunit": "^7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lamoda\\Ximilar\\Api\\Client\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lamoda\\Ximilar\\Api\\Client\\ServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

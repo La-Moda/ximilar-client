@@ -1,4 +1,13 @@
-/bootstrap/compiled.php
-.env.*.php
-.env.php
-.env
+/vendor
+/.env
+composer.phar
+composer.lock
+/phpunit.xml
+
+_ide_helper.php
+.idea
+.vscode
+.phpstorm.*
+.prettierrc
+Thumbs.db
+.DS_Store
