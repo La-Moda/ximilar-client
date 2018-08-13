@@ -2,20 +2,22 @@
 
 namespace Tests;
 
-// use Orchestra\Testbench\TestCase;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Handler\MockHandler;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase
 {
-    // protected function getPackageProviders($app)
-    // {
-    //     return ['Lamoda\Ximilar\ServiceProvider'];
-    // }
+    /**
+     * @return Client
+     */
+    protected function createGuzzleClient($mock)
+    {
+        $handler = HandlerStack::create(new MockHandler($mock));
 
-    // protected function getPackageAliases($app)
-    // {
-    //     return [
-    //         'Acme' => 'Acme\Facade',
-    //     ];
-    // }
+        $client = new Client(['handler' => $handler]);
+
+        return $client;
+    }
 }

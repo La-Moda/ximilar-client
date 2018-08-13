@@ -20,61 +20,22 @@ class PingTest extends AbstractTestCase
      */
     protected $ximilar;
 
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $client = $this->createGuzzleClient();
-
-        $this->ximilar = new XimilarApi($client);
-    }
-
     /** @test */
     public function ping()
     {
-        /** @var Response */
-        $response = $this->ximilar->ping();
-
-        // Q: co myslicie o takich snapshotach? nie wiem czy jest przezreczyste co konkretnie sprawdza test ?
-        $this->assertMatchesSnapshot(serialize($response));
-
-        // $this->assertEquals(200, $response->getStatusCode());
-
-        // $this->assertEquals('OK', $response->getReasonPhrase());
-    }
-
-    /**
-     * Example of answer:
-     * {
-     *    "info" : "Similarity Manager with...
-     *    "statistics" : {
-     *       "OperationTime" : 3
-     *    },
-     *    "status" : {
-     *       "text" : "OK",
-     *       "code" : 200
-     *    }
-     * }
-     * 
-     * @return Client
-     */
-    protected function createGuzzleClient()
-    {
-        $mock = new MockHandler([
+        $client = $this->createGuzzleClient([
             new Response(200, [
                 'info' => 'Similarity Manager with...',
                 'statistics' => [
                     'OperationTime' => 3
                 ]
-            ]),
+            ])
         ]);
+        $ximilar = new XimilarApi($client);
 
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
+        /** @var Response */
+        $response = $ximilar->ping();
 
-        return $client;
+        $this->assertMatchesSnapshot(serialize($response));
     }
 }
