@@ -3,6 +3,7 @@
 composer.phar
 composer.lock
 /phpunit.xml
+.phpunit.result.cache
 
 _ide_helper.php
 .idea
@@ -11,3 +12,5 @@ _ide_helper.php
 .prettierrc
 Thumbs.db
 .DS_Store
+
+notes.txt

@@ -1,5 +1,5 @@
 {
-    "name": "lamoda/ximilar-client",
+    "name": "lamoda/ximilar-api-client",
     "description": "Ximilar API Client",
     "keywords": ["laravel", "ximilar", "ximilar api client"],
     "type": "library",
@@ -17,11 +17,12 @@
     },
     "require-dev": {
         "orchestra/testbench": "^3.6",
-        "phpunit/phpunit": "^7.3"
+        "phpunit/phpunit": "^7.3",
+        "spatie/phpunit-snapshot-assertions": "^1.3"
     },
     "autoload": {
         "psr-4": {
-            "Lamoda\\Ximilar\\Api\\Client\\": "src/"
+            "Lamoda\\Ximilar\\": "src/"
         }
     },
     "autoload-dev": {
@@ -32,7 +33,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Lamoda\\Ximilar\\Api\\Client\\ServiceProvider"
+                "Lamoda\\Ximilar\\ServiceProvider"
             ]
         }
     },
