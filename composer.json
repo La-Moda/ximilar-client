@@ -1,5 +1,5 @@
 {
-    "name": "lamoda/ximilar-api-client",
+    "name": "la-moda/laravel-ximilar-client",
     "description": "Ximilar API Client",
     "keywords": ["laravel", "ximilar", "ximilar api client"],
     "type": "library",
@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.0",
         "guzzlehttp/guzzle": "^6.3",
-        "illuminate/support": "^5.6"
+        "illuminate/support": "5.5.*|5.6.*"
     },
     "require-dev": {
         "orchestra/testbench": "^3.6",
@@ -37,9 +37,6 @@
             ]
         }
     },
-    "config": {
-        "sort-packages": true
-    },
     "minimum-stability": "dev",
-    "prefer-stable": false
+    "prefer-stable": true
 }
