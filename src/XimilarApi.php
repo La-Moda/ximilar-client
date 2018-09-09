@@ -4,6 +4,8 @@ namespace Lamoda\Ximilar;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Lamoda\Ximilar\Options\AllRecords;
+use Lamoda\Ximilar\Options\BaseOptions;
 
 class XimilarApi
 {
@@ -31,14 +33,29 @@ class XimilarApi
     }
 
     /**
+     * Dets all records stored in the collection (or just their IDs).
+     * The answer is either returned as a standard answer,
+     * or stored into a file in the local file system, or both.
+     * The created file contains each record on a separate line
+     * (it can be directly used to bulk insert data into a new index).
+     * 
+     * @var AllRecords options
+     */
+    public function allRecords(AllRecords $options)
+    {
+        $options = $this->preparedOptions($options);
+
+        return $this->client->post('allRecords', $options);
+    }
+
+    /**
      * Inserts given list of records (images + metadata) into the index
      * 
-     * @var array records - a list of records to insert into the index
-     * @var array fields_to_return with default value ["_id"]
+     * @var BaseOptions options
      */
-    public function insert($records, $fields_to_return = ['_id'])
+    public function insert(BaseOptions $options)
     {
-        $options = $this->preparedOptions($records, $fields_to_return);
+        $options = $this->preparedOptions($options);
 
         return $this->client->post('insert', $options);
     }
@@ -46,23 +63,27 @@ class XimilarApi
     /**
      * Deletes given list of records (identified by _id) from the index
      * 
-     * @var array records - a list of records to insert into the index
-     * @var array fields_to_return with default value ["_id"]
+     * @var BaseOptions options
      */
-    public function delete($records, $fields_to_return = ['_id'])
+    public function delete(BaseOptions $options)
     {
-        $options = $this->preparedOptions($records, $fields_to_return);
+        $options = $this->preparedOptions($options);
 
         return $this->client->post('delete', $options);
     }
 
-    protected function preparedOptions($records, $fields_to_return)
+    protected function preparedOptions($options)
     {
+        $requestOptions = collect();
+
+        foreach ($options as $key => $value) {
+            if ($value !== null) {
+                $requestOptions->push([$key => $value]);
+            }
+        }
+
         return [
-            RequestOptions::JSON => [
-                'records' => $records,
-                'fields_to_return' => $fields_to_return,
-            ],
+            RequestOptions::JSON => $requestOptions,
         ];
     }
 }
