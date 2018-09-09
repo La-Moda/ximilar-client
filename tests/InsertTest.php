@@ -3,6 +3,7 @@
 namespace Tests;
 
 use GuzzleHttp\Psr7\Response;
+use Lamoda\Ximilar\Options\BaseOptions;
 use Lamoda\Ximilar\XimilarApi;
 use Spatie\Snapshots\MatchesSnapshots;
 
@@ -18,7 +19,8 @@ class InsertTest extends AbstractTestCase
         ]);
         $ximilar = new XimilarApi($client);
 
-        $records = [
+        $options = new BaseOptions;
+        $options->records = [
             [
                 '_id' => 321,
                 '_url' => 'http://example.com/myimage321.png',
@@ -30,7 +32,7 @@ class InsertTest extends AbstractTestCase
         ];
 
         /** @var Response */
-        $response = $ximilar->insert($records);
+        $response = $ximilar->insert($options);
 
         $this->assertMatchesSnapshot(serialize($response));
     }
@@ -44,8 +46,8 @@ class InsertTest extends AbstractTestCase
         ]);
         $ximilar = new XimilarApi($client);
 
-        /** insert records for test */
-        $ximilar->insert([
+        $options = new BaseOptions;
+        $options->records = [
             [
                 '_id' => 321,
                 '_url' => 'http://example.com/myimage321.png',
@@ -54,19 +56,23 @@ class InsertTest extends AbstractTestCase
                 '_id' => 322,
                 '_url' => 'http://example.com/myimage322.png',
             ],
-        ]);
+        ];
 
-        /** @var Response */
-        $response = $ximilar->insert([
+        /** insert records for test */
+        $ximilar->insert($options);
+
+        $options->records = [
             [
                 '_id' => 321,
                 '_url' => 'http://example.com/myimage321.png',
             ],
             [
                 '_id' => 323,
-                '_url' => 'http://example.com/myimage322.png',
+                '_url' => 'http://example.com/myimage323.png',
             ],
-        ]);
+        ];
+        /** @var Response */
+        $response = $ximilar->insert($options);
 
         $this->assertMatchesSnapshot(serialize($response));
     }
@@ -80,7 +86,8 @@ class InsertTest extends AbstractTestCase
         ]);
         $ximilar = new XimilarApi($client);
 
-        $records = [
+        $options = new BaseOptions;
+        $options->records = [
             [
                 '_id' => 321,
                 '_url' => 'http://example.com/myimage321.png',
@@ -91,14 +98,14 @@ class InsertTest extends AbstractTestCase
             ],
         ];
 
-        $ximilar->insert($records);
+        $ximilar->insert($options);
 
         $this->markTestIncomplete(
             'This test has not been implemented yet.'
         );
 
         /** @var Response */
-        $response = $ximilar->insert($records);
+        $response = $ximilar->insert($options);
     }
 
     /** @test */
