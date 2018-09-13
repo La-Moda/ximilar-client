@@ -74,11 +74,11 @@ class XimilarApi
 
     protected function preparedOptions($options)
     {
-        $requestOptions = collect();
+        $requestOptions = [];
 
         foreach ($options as $key => $value) {
             if ($value !== null) {
-                $requestOptions->push([$key => $value]);
+                $requestOptions[$key] = $value;
             }
         }
 
